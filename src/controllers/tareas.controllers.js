@@ -1,20 +1,43 @@
-
+import Tarea from "../models/tarea"
 
 export const listarTareas = async (req, res) =>{
-        res.send('aqui tengo que retornar un arreglo de tareas')
-}
+ try{
+        
+        // buscar todas las tareas en la base de datos
+        const listaTareas = await Tarea.find();
+        // responder al usuario que todo salió bien
+        res.status(200).json(listaTareas)
+        } catch (error){
+        console.log(error)
+        res.status(404).json({
+                mensaje: 'Error al intentar buscar la tarea'
+        })
+        }
+   
+};
 
       
 
 export const crearTarea = async(req, res)=>{
-        console.log(req)
-        // estraer del body los datos
+        try{
+         // estraer del body los datos
         console.log(req.body)
         // agregar la validación correspondiente
-        // guardar ese producto en la base de datos
         
-        res.send('esto es una prueba de la petición POST')
-}
+        const tareaNueva = new Tarea (req.body)
+        // guardar esa tarea en la base de datos
+        await tareaNueva.save();
+        // responder al usuario que todo salió bien
+        res.status(201).json({
+                mensaje: 'La tarea fue correctamente creada'
+        })
+        } catch (error){
+        console.log(error)
+        res.status(400).json({
+                mensaje: 'Error al intentar agregar la tarea'
+        })
+        }
+};
 
 
 /*
