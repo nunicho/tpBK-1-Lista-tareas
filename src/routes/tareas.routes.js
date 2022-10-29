@@ -8,7 +8,9 @@ router.route('/tareas')
         .get(listarTareas)
         .post(crearTarea)
 
-// router.route('/tareas/:id')
+
+
+router.route('/tareas/:id')
 // .get()
 // .put()
 // .delete()
