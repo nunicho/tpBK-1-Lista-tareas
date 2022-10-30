@@ -55,6 +55,23 @@ res.status(200).json(tareaBuscada);
 }
 }
 
+
+export const editarTarea = async (req, res) =>{
+try{
+//buscar la tarea por el id, luego modificar los datos, luego modificar los datos por el bodu
+ await Tarea.findByIdAndUpdate(req.params.id,req.body)
+//responder al frontend
+res.status(200).json({
+        mensaje: 'La tarea fue editada correctamente'
+})
+}catch(error){
+ console.log(error)
+ res.status(404).json({
+        mensaje: 'Error, la tarea solicitada no pudo ser modificada'
+ })
+}
+}
+
 /*
 
 import Tarea from '../models/tarea'
