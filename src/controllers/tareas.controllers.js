@@ -39,6 +39,21 @@ export const crearTarea = async(req, res)=>{
         }
 };
 
+export const obtenerTarea = async (req, res) =>{
+try{
+//obtener el parámetro
+console.log(req.params.id)
+//pedirle a la BD buscar el documento que conincide con el id del parámetro
+const tareaBuscada = await Tarea.findById(req.params.id)
+// responder con la tarea encontrada
+res.status(200).json(tareaBuscada);
+}catch(error){
+ console.log(error)
+ res.status(404).json({
+        mensaje: 'Error no se pudo encontrar la tarea solicitada'
+ })
+}
+}
 
 /*
 
