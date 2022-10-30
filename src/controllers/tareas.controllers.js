@@ -72,6 +72,21 @@ res.status(200).json({
 }
 }
 
+export const borrarTarea = async (req, res) =>{
+try{
+// buscar una tarea por el id y borrar
+await Tarea.findByIdAndDelete(req.params.id)
+res.status(200).json({
+        mensaje: 'La tarea fue correctamente eliminada'
+})
+}catch(error){
+ console.log(error)
+ res.status(404).json({
+        mensaje: 'Error, la tarea solicitada no pudo ser eliminada'
+ })
+}
+}
+
 /*
 
 import Tarea from '../models/tarea'

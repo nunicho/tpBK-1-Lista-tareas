@@ -1,5 +1,5 @@
 import { Router } from "express"; 
-import { crearTarea, editarTarea, listarTareas, obtenerTarea } from "../controllers/tareas.controllers";
+import { crearTarea, editarTarea, listarTareas, obtenerTarea, borrarTarea} from "../controllers/tareas.controllers";
 
 //ojo, Router no es lo mismo que router.
 const router = Router ();
@@ -13,7 +13,7 @@ router.route('/tareas')
 router.route('/tareas/:id')
 .get(obtenerTarea)
 .put(editarTarea)
-// .delete()
+.delete(borrarTarea)
 
 
 
