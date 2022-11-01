@@ -1,3 +1,4 @@
+import { validationResult } from "express-validator";
 import Tarea from "../models/tarea"
 
 export const listarTareas = async (req, res) =>{
@@ -20,10 +21,18 @@ export const listarTareas = async (req, res) =>{
 
 export const crearTarea = async(req, res)=>{
         try{
+        // manejar los errores de express-validator
+        const errores = validationResult(req);
+        // errores.isEmpty() retorna true cuando no hay errores y retorna false cuando hay errores
+        //pregunto si hay errores
+        if(! errores.isEmpty()){
+               return  res.status(400).json({
+                        errores: errores.array()
+                })
+        }
          // estraer del body los datos
         console.log(req.body)
         // agregar la validación correspondiente
-        
         const tareaNueva = new Tarea (req.body)
         // guardar esa tarea en la base de datos
         await tareaNueva.save();
@@ -61,6 +70,14 @@ try{
 //buscar la tarea por el id, luego modificar los datos, luego modificar los datos por el bodu
  await Tarea.findByIdAndUpdate(req.params.id,req.body)
 //responder al frontend
+const errores = validationResult(req);
+        // errores.isEmpty() retorna true cuando no hay errores y retorna false cuando hay errores
+        //pregunto si hay errores
+        if(! errores.isEmpty()){
+               return  res.status(400).json({
+                        errores: errores.array()
+                })
+        }
 res.status(200).json({
         mensaje: 'La tarea fue editada correctamente'
 })
